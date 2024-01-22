@@ -1,7 +1,8 @@
 const path = require("path")
 
 module.exports = {
-  entry: "./src/index.js",
+  mode: "development",
+  entry: "./src/index.tsx",
   output: {
     filename: "bundle.js",
     path: path.resolve(__dirname, "dist"),
@@ -13,14 +14,14 @@ module.exports = {
         use: ["style-loader", "css-loader"],
       },
       {
-        test: /\.(jsx|js)$/i,
+        test: /\.(tsx|ts)$/i,
         exclude: /node_modules/,
-        use: ["babel-loader"],
+        use: ["babel-loader", "ts-loader"],
       },
     ],
   },
   resolve: {
-    extensions: [".js", ".jsx"],
+    extensions: [".tsx", ".ts", ".js"],
   },
   devServer: {
     static: {

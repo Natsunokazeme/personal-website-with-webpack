@@ -1,7 +1,7 @@
-import _ from "lodash"
+import ReactDOM from "react-dom/client"
 import "./style.css"
+import App from "./App"
 import React from "react"
-import ReactDOM from "react-dom"
 
 // function component() {
 //   const element = document.createElement("div")
@@ -14,12 +14,5 @@ import ReactDOM from "react-dom"
 
 // document.body.appendChild(component())
 
-const App = () => {
-  return (
-    <div>
-      <p>Hello React!</p>
-    </div>
-  )
-}
-
-ReactDOM.render(<App />, document.getElementById("root"))
+const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement)
+root.render(<App />)
