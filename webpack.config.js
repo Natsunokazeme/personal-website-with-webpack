@@ -1,4 +1,7 @@
 const path = require("path")
+const HtmlWebpackPlugin = require("html-webpack-plugin")
+const BundleAnalyzerPlugin =
+  require("webpack-bundle-analyzer").BundleAnalyzerPlugin
 
 module.exports = {
   mode: "development",
@@ -6,7 +9,9 @@ module.exports = {
   output: {
     filename: "bundle.js",
     path: path.resolve(__dirname, "dist"),
+    clean: true,
   },
+  devtool: "inline-source-map",
   module: {
     rules: [
       {
@@ -17,6 +22,10 @@ module.exports = {
         test: /\.(tsx|ts)$/i,
         exclude: /node_modules/,
         use: ["babel-loader", "ts-loader"],
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: "asset/resource",
       },
     ],
   },
@@ -29,4 +38,11 @@ module.exports = {
     },
     port: 3000,
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: "./src/index.html",
+      inject: "body",
+    }),
+    new BundleAnalyzerPlugin(),
+  ],
 }

@@ -3,6 +3,16 @@ import "./App.scss"
 import {ThemeProvider, createTheme} from "@mui/material"
 import Loading from "./components/Loading/Loading"
 
+import CameraScan from "./components/CameraScan/CameraScan"
+import {
+  BrowserRouter,
+  Route,
+  RouterProvider,
+  Routes,
+  createBrowserRouter,
+} from "react-router-dom"
+import MainPage from "./pages/MainPage/MainPage"
+
 function App() {
   const customTheme = createTheme({
     palette: {
@@ -24,31 +34,10 @@ function App() {
       document.removeEventListener("ShowLoading", () => {})
     }
   }, [])
+
   return (
     <ThemeProvider theme={customTheme}>
-      <div className='App'>
-        <Loading />
-        {/* {loading ? <Loading /> : null} */}
-        {/* <Router>
-          <Routes>
-            <Route path='/' element={<MainPage />}></Route>
-            <Route path='/camera' element={<ImagePage />}></Route>
-            <Route
-              path='/create-account'
-              element={<CreateAccountPage />}
-            ></Route>
-            <Route path='/my-account' element={<AccountPage />}></Route>
-            <Route path='/wechat-settings' element={<WeChatPage />}></Route>
-            <Route path='computer-notebook' element={<NotebookPage />}></Route>
-            <Route
-              path='/language-learning'
-              element={<LanguageLearningPage />}
-            ></Route>
-            <Route path='/creation' element={<CreationPage />}></Route>
-            <Route path='*' element={<div>404</div>}></Route>
-          </Routes>
-        </Router> */}
-      </div>
+      <div className='App'>{loading ? <Loading /> : null}</div>
     </ThemeProvider>
   )
 }
