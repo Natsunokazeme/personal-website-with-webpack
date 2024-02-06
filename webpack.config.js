@@ -33,6 +33,7 @@ module.exports = {
     extensions: [".tsx", ".ts", ".js"],
   },
   devServer: {
+    historyApiFallback: true,
     static: {
       directory: path.join(__dirname, "dist"),
     },

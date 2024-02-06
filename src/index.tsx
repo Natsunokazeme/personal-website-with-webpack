@@ -3,17 +3,8 @@ import "./style.scss"
 import App from "./App"
 import React from "react"
 import {RouterProvider, createBrowserRouter} from "react-router-dom"
+import Loading from "./components/Loading/Loading"
 
-// function component() {
-//   const element = document.createElement("div")
-
-//   // Lodash, currently included via a script, is required for this line to work
-//   element.innerHTML = _.join(["Hello", "webpack"], " ")
-//   element.classList.add("hello")
-//   return element
-// }
-
-// document.body.appendChild(component())
 const router = createBrowserRouter([
   {
     path: "/",
@@ -24,16 +15,15 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "q",
+    path: "/q",
     element: <App />,
-    children: [
-      {
-        path: "camera",
-        element: <div>12child3</div>,
-      },
-    ],
+  },
+  {
+    path: "loading",
+    element: <Loading />,
   },
 ])
 
-const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement)
-root.render(<RouterProvider router={router} />)
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+  <RouterProvider router={router} />
+)
