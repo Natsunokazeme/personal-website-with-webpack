@@ -1,3 +1,14 @@
 .main-body {
   @apply w-full min-h-screen pb-5;
+  .self-info {
+    color: var(--theme-color);
+    @apply font-bold text-lg text-center;
+    .email {
+      @apply text-2xl text-purple-500;
+    }
+  }
+  .bg-music {
+    @apply fixed bottom-0 right-0 hover:bottom-2 transition-all;
+    color: var(--secondary-theme-color);
+  }
 }
