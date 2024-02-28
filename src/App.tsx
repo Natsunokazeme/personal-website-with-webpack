@@ -3,14 +3,8 @@ import "./App.scss"
 import {ThemeProvider, createTheme} from "@mui/material"
 import Loading from "./components/Loading/Loading"
 
-import CameraScan from "./components/CameraScan/CameraScan"
-import {
-  BrowserRouter,
-  Route,
-  RouterProvider,
-  Routes,
-  createBrowserRouter,
-} from "react-router-dom"
+// import CameraScan from "./components/CameraScan/CameraScan"
+import {RouterProvider, createBrowserRouter} from "react-router-dom"
 import MainPage from "./pages/MainPage/MainPage"
 
 function App() {
@@ -25,19 +19,35 @@ function App() {
     },
   })
 
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <MainPage />,
+    },
+  ])
+
   const [loading, setLoading] = React.useState(false)
   useEffect(() => {
-    document.addEventListener("ShowLoading", (event) => {
+    const updateTime = () => {
+      localStorage.setItem("lastTime", new Date().toString())
+    }
+    const showLoading = (event: any) => {
       setLoading((event as CustomEvent).detail)
-    })
+    }
+    window.addEventListener("beforeunload", updateTime)
+    document.addEventListener("ShowLoading", showLoading)
     return () => {
-      document.removeEventListener("ShowLoading", () => {})
+      document.removeEventListener("ShowLoading",showLoading )
+      window.removeEventListener("beforeunload", updateTime)
     }
   }, [])
 
   return (
     <ThemeProvider theme={customTheme}>
-      <div className='App'>{loading ? <Loading /> : null}</div>
+      <div className='App'>
+        {loading ? <Loading /> : null}
+        <RouterProvider router={router} />
+      </div>
     </ThemeProvider>
   )
 }
