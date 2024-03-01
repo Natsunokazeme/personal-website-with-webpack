@@ -4,11 +4,14 @@ import Clock from "../../components/Clock/Clock"
 import MusicNoteIcon from "@mui/icons-material/MusicNote"
 import MusicOffIcon from "@mui/icons-material/MusicOff"
 import {IconButton, Tooltip} from "@mui/material"
+import Header from "../../components/Header/Header"
 
 const MainPage = (props: any) => {
   const [musicOn, setMusicOn] = React.useState(true)
   return (
     <div className='main-body'>
+      <Header></Header>
+
       <Clock></Clock>
       <div className='self-info'>
         <div className='email'>natsunokazeme@gmail.com</div>
@@ -18,6 +21,7 @@ const MainPage = (props: any) => {
           and share them, Hope you can find something interesting here.
         </div>
       </div>
+      <div></div>
       <div>page navigation cards</div>
       <div>recommend websites</div>
       <div>self learning notes</div>

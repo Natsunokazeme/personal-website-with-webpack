@@ -1,0 +1,13 @@
+.custom-cropper-modal {
+  .MuiModal-root {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0);
+    .cropper {
+      .cropper-modal {
+        @apply opacity-0;
+      }
+    }
+  }
+}

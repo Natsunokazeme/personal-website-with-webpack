@@ -42,7 +42,8 @@ const Clock = () => {
       highLightIndex?: number
       hightLightColor?: string
       color?: string
-    }
+    },
+    customTimeFormat?: string[]
   ) =>
     Array.from({length: size}, (_, index) => (
       <div
@@ -62,7 +63,7 @@ const Clock = () => {
         }}
         key={index}
       >
-        {index.toString().padStart(2, "0")}
+        {customTimeFormat?.[index] ?? index.toString().padStart(2, "0")}
         {config?.label}
       </div>
     ))
@@ -98,11 +99,17 @@ const Clock = () => {
 
   const hours = useMemo(() => {
     // +1 to beautify the animation
-    return circleElements(24, (16 / 100) * maxSize, curTime.getHours(), {
-      label: "时",
-      highLightIndex: curTime.getHours(),
-      hightLightColor: "var(--secondary-theme-color)",
-    })
+    return circleElements(
+      12,
+      (16 / 100) * maxSize,
+      curTime.getHours() / 2,
+      {
+        // label: "时",
+        highLightIndex: curTime.getHours() / 2,
+        hightLightColor: "var(--secondary-theme-color)",
+      },
+      ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"]
+    )
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [curTime.getHours(), maxSize])
 
