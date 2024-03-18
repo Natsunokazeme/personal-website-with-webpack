@@ -1,6 +1,7 @@
 import "./MainPage.scss"
 import React from "react"
 import Clock from "../../components/Clock/Clock"
+import DragSortList from "../../components/DragSortList/DragSortList"
 import MusicNoteIcon from "@mui/icons-material/MusicNote"
 import MusicOffIcon from "@mui/icons-material/MusicOff"
 import {IconButton, Tooltip} from "@mui/material"
@@ -50,6 +51,7 @@ const MainPage = (props: any) => {
         hidden
         muted={!musicOn}
       ></audio>
+      <DragSortList></DragSortList>
     </div>
   )
 }
