@@ -1,7 +1,7 @@
 const path = require("path")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
-const BundleAnalyzerPlugin =
-  require("webpack-bundle-analyzer").BundleAnalyzerPlugin
+// const BundleAnalyzerPlugin =
+//   require("webpack-bundle-analyzer").BundleAnalyzerPlugin
 const webpack = require("webpack")
 
 module.exports = {
@@ -46,7 +46,7 @@ module.exports = {
       template: "./src/index.html",
       inject: "body",
     }),
-    new BundleAnalyzerPlugin(),
+    // new BundleAnalyzerPlugin(),
     new webpack.DefinePlugin({
       "process.env.REACT_APP_BASEURL": JSON.stringify(
         process.env.REACT_APP_BASEURL
