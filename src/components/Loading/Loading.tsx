@@ -1,5 +1,5 @@
 import React, {FC} from "react"
-import "./Loading.scss"
+import "./a.scss"
 
 interface LoadingProps {}
 
