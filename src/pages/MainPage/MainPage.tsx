@@ -1,14 +1,53 @@
 import "./MainPage.scss"
-import React from "react"
+import React, {useCallback, useEffect} from "react"
 import Clock from "../../components/Clock/Clock"
 import DragSortList from "../../components/DragSortList/DragSortList"
 import MusicNoteIcon from "@mui/icons-material/MusicNote"
 import MusicOffIcon from "@mui/icons-material/MusicOff"
 import {IconButton, Tooltip} from "@mui/material"
 import Header from "../../components/Header/Header"
+import axios from "axios"
+
+let bgmReady = false
 
 const MainPage = (props: any) => {
-  const [musicOn, setMusicOn] = React.useState(true)
+  const [musicOn, setMusicOn] = React.useState(false)
+
+  const bgMusicRef = React.useRef<HTMLAudioElement>(null)
+
+  const handleMusicToggle = useCallback(() => {
+    const bgMusic = bgMusicRef.current
+    if (bgMusic && bgmReady) {
+      if (musicOn) {
+        bgMusic.play()
+      } else {
+        bgMusic.pause()
+      }
+    }
+  }, [musicOn])
+
+  useEffect(() => {
+    handleMusicToggle()
+  }, [handleMusicToggle])
+
+  useEffect(() => {
+    axios.get("https://anime-music.jijidown.com/api/v2/music").then((res) => {
+      if (bgMusicRef.current) {
+        bgMusicRef.current.src = res.data.res.play_url
+        bgMusicRef.current.addEventListener("canplay", () => {
+          bgmReady = true
+        })
+      }
+    })
+    return () => {
+      if (bgMusicRef.current) {
+        bgMusicRef.current.removeEventListener("canplay", () => {
+          bgmReady = false
+        })
+      }
+    }
+  }, [])
+
   return (
     <div className='main-body'>
       <Header></Header>
@@ -28,13 +67,12 @@ const MainPage = (props: any) => {
       <div>self learning notes</div>
       <Tooltip
         placement='left-start'
-        title='One of my favorite songs is cannon, here is a version of it. Hope you
-        enjoy it.'
+        title='Random Anime Music'
         className='bg-music'
       >
         <IconButton
           onClick={() => {
-            setMusicOn(!musicOn)
+            bgmReady && setMusicOn(!musicOn)
           }}
         >
           {musicOn ? (
@@ -44,14 +82,8 @@ const MainPage = (props: any) => {
           )}
         </IconButton>
       </Tooltip>
-      <audio
-        src='https://music.163.com/song/media/outer/url?id=1491384650.mp3'
-        autoPlay
-        loop
-        hidden
-        muted={!musicOn}
-      ></audio>
-      <DragSortList></DragSortList>
+      <audio ref={bgMusicRef} loop hidden></audio>
+      {/* <DragSortList></DragSortList> */}
     </div>
   )
 }
