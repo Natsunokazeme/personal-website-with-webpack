@@ -102,10 +102,10 @@ const Clock = () => {
     return circleElements(
       12,
       (16 / 100) * maxSize,
-      curTime.getHours() / 2,
+      Math.floor(curTime.getHours() / 2),
       {
         // label: "时",
-        highLightIndex: curTime.getHours() / 2,
+        highLightIndex: Math.floor(curTime.getHours() / 2),
         hightLightColor: "var(--secondary-theme-color)",
       },
       ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"]

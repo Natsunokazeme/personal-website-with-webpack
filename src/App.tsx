@@ -24,6 +24,10 @@ function App() {
       path: "/",
       element: <MainPage />,
     },
+    {
+      path: "*",
+      element: <MainPage />,
+    },
   ])
 
   const [loading, setLoading] = React.useState(false)
@@ -37,7 +41,7 @@ function App() {
     window.addEventListener("beforeunload", updateTime)
     document.addEventListener("ShowLoading", showLoading)
     return () => {
-      document.removeEventListener("ShowLoading",showLoading )
+      document.removeEventListener("ShowLoading", showLoading)
       window.removeEventListener("beforeunload", updateTime)
     }
   }, [])
