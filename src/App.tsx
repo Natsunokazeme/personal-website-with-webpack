@@ -6,6 +6,7 @@ import Loading from "./components/Loading/Loading"
 // import CameraScan from "./components/CameraScan/CameraScan"
 import {RouterProvider, createBrowserRouter} from "react-router-dom"
 import MainPage from "./pages/MainPage/MainPage"
+import ImagePage from "./pages/ImagePage/ImagePage"
 
 function App() {
   const customTheme = createTheme({
@@ -25,6 +26,10 @@ function App() {
       element: <MainPage />,
     },
     {
+      path: "/camera",
+      element: <ImagePage />,
+    },
+    {
       path: "*",
       element: <MainPage />,
     },
@@ -38,11 +43,11 @@ function App() {
     const showLoading = (event: any) => {
       setLoading((event as CustomEvent).detail)
     }
-    window.addEventListener("beforeunload", updateTime)
+    document.addEventListener("beforeunload", updateTime)
     document.addEventListener("ShowLoading", showLoading)
     return () => {
       document.removeEventListener("ShowLoading", showLoading)
-      window.removeEventListener("beforeunload", updateTime)
+      document.removeEventListener("beforeunload", updateTime)
     }
   }, [])
 

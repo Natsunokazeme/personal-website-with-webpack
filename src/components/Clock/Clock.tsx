@@ -3,6 +3,7 @@ import {useMemo, useRef, useState} from "react"
 import {useEffect} from "react"
 import dayjs from "./../../utils/dayjs"
 import React from "react"
+import {ClassNames} from "@emotion/react"
 
 const Clock = () => {
   const [curTime, setCurTime] = useState(new Date())
@@ -14,22 +15,13 @@ const Clock = () => {
   )
 
   const currentTime = useRef(new Date())
-  const [lastTime, setLastTime] = useState("")
 
   useEffect(() => {
-    const lastTime =
-      localStorage.getItem("lastTime") ?? new Date().toISOString()
-    setLastTime(dayjs(lastTime).format("llll"))
     const intervalId = setInterval(() => {
       setCurTime(new Date())
     }, 1000)
     return () => {
       clearInterval(intervalId)
-      // localStorage.setItem("curTime", curTime.toString())
-      // setCurTime((curTime) => {
-
-      //   return curTime
-      // })
     }
   }, [])
 
@@ -70,7 +62,6 @@ const Clock = () => {
 
   const formattedDate = useMemo(() => {
     return dayjs(curTime).format("LLLL")
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [curTime.getMinutes()])
 
   const seconds = useMemo(() => {
@@ -84,7 +75,6 @@ const Clock = () => {
         hightLightColor: "var(--secondary-theme-color)",
       }
     )
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [curTime.getSeconds(), maxSize])
 
   const minutes = useMemo(() => {
@@ -94,7 +84,6 @@ const Clock = () => {
       highLightIndex: curTime.getMinutes(),
       hightLightColor: "var(--secondary-theme-color)",
     })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [curTime.getMinutes(), maxSize])
 
   const hours = useMemo(() => {
@@ -110,12 +99,13 @@ const Clock = () => {
       },
       ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"]
     )
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [curTime.getHours(), maxSize])
 
   return (
     <div className='clock-wrapper'>
-      <div className='text-center pt-5'>上一次打开时间:{lastTime}</div>
+      <div className='text-center pt-5 text-gray-400'>
+        Clock size will fit the screen size, try it
+      </div>
       <h1 className='date'>{formattedDate}</h1>
       <div className='clock'>
         <div className='seconds'>{seconds}</div>

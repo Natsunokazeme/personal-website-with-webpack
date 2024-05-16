@@ -62,9 +62,9 @@ const MainPage = (props: any) => {
         </div>
       </div>
       <div></div>
-      <div>page navigation cards</div>
+      {/* <div>page navigation cards</div>
       <div>recommend websites</div>
-      <div>self learning notes</div>
+      <div>self learning notes</div> */}
       <Tooltip
         placement='left-start'
         title='Random Anime Music'

@@ -24,6 +24,10 @@ module.exports = {
         use: ["style-loader", "css-loader", "postcss-loader", "sass-loader"],
       },
       {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader", "postcss-loader"],
+      },
+      {
         test: /\.(tsx|ts)$/i,
         exclude: /node_modules/,
         use: ["babel-loader", "ts-loader"],

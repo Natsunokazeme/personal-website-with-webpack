@@ -210,6 +210,7 @@ const Header: FC<HeaderProps> = (props) => {
       <Toolbar>
         <Tooltip arrow title='language learning'>
           <IconButton
+            disabled
             size='large'
             edge='start'
             color='inherit'
@@ -221,6 +222,7 @@ const Header: FC<HeaderProps> = (props) => {
         </Tooltip>
         <Tooltip arrow title='creation'>
           <IconButton
+            disabled
             size='large'
             edge='start'
             color='inherit'
@@ -230,8 +232,9 @@ const Header: FC<HeaderProps> = (props) => {
             <BrushIcon />
           </IconButton>
         </Tooltip>
-        <Tooltip arrow title='weChat settings'>
+        {/* <Tooltip arrow title='weChat settings'>
           <IconButton
+            disabled
             size='large'
             edge='start'
             color='inherit'
@@ -240,9 +243,10 @@ const Header: FC<HeaderProps> = (props) => {
           >
             <WeChatIcon />
           </IconButton>
-        </Tooltip>
+        </Tooltip> */}
         <Tooltip arrow title='computer notebook'>
           <IconButton
+            disabled
             size='large'
             edge='start'
             color='inherit'
@@ -253,6 +257,7 @@ const Header: FC<HeaderProps> = (props) => {
           </IconButton>
         </Tooltip>
         <IconButton
+          disabled
           size='large'
           edge='start'
           color='inherit'
@@ -269,6 +274,7 @@ const Header: FC<HeaderProps> = (props) => {
         />
         <Tooltip arrow title='import book'>
           <IconButton
+            disabled
             size='large'
             edge='start'
             color='inherit'

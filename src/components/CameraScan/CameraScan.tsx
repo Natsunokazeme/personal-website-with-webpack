@@ -52,11 +52,16 @@ const CameraScan: FC<CameraScanProps> = (prop: CameraScanProps) => {
     if (!prop.show) {
       stopCamera()
     } else {
-      startCamera({
-        video: {
-          deviceId: {exact: cameras.find((camera) => camera.active)?.deviceId},
-        },
-      })
+      const deviceId = cameras.find((camera) => camera.active)?.deviceId
+      const constraints: MediaStreamConstraints = {}
+      if (deviceId) {
+        constraints.video = {
+          deviceId: {exact: deviceId},
+        }
+      } else {
+        constraints.video = true
+      }
+      startCamera(constraints)
     }
   }, [cameras, prop.show])
 
