@@ -29,17 +29,20 @@ const CameraScan: FC<CameraScanProps> = (prop: CameraScanProps) => {
       return
     }
     navigator.mediaDevices.enumerateDevices().then((mediaDevices) => {
-      setCameras(
-        mediaDevices
-          .filter((devices: MediaDeviceInfo) => devices.kind === "videoinput")
-          .map((device, index) => ({
-            kind: device.kind,
-            label: device.label,
-            deviceId: device.deviceId,
-            groupId: device.groupId,
-            active: index === 0 ? true : false,
-          }))
-      )
+      const cameras = mediaDevices
+        .filter((devices: MediaDeviceInfo) => devices.kind === "videoinput")
+        .map((device, index) => ({
+          kind: device.kind,
+          label: device.label,
+          deviceId: device.deviceId,
+          groupId: device.groupId,
+          active: index === 0 ? true : false,
+        }))
+      if (cameras.find((camera) => camera.deviceId) === undefined) {
+        // first time without permission
+        //todo need to auto open permission
+      }
+      setCameras(cameras)
     })
     return () => {
       console.log("unmount")
@@ -189,21 +192,23 @@ const CameraScan: FC<CameraScanProps> = (prop: CameraScanProps) => {
           </button>
         </div>
         <div className='camera-options flex flex-col justify-center items-center py-10 '>
-          {cameras.map((camera) => (
-            <li
-              onClick={() => {
-                changeCamera(camera.deviceId)
-              }}
-              className={`${
-                camera.active
-                  ? "text-[var(--secondary-theme-color)]"
-                  : "text-white "
-              } list-none px-5 py-3 rounded-lg bg-[var(--light-theme-color)] hover:opacity-50 hover:cursor-pointer`}
-              key={camera.deviceId}
-            >
-              {camera.label}
-            </li>
-          ))}
+          {cameras.map((camera) =>
+            camera.deviceId === "" ? null : (
+              <li
+                onClick={() => {
+                  changeCamera(camera.deviceId)
+                }}
+                className={`${
+                  camera.active
+                    ? "text-[var(--secondary-theme-color)]"
+                    : "text-white "
+                } list-none px-5 py-3 rounded-lg bg-[var(--light-theme-color)] hover:opacity-50 hover:cursor-pointer`}
+                key={camera.deviceId}
+              >
+                {camera.label}
+              </li>
+            )
+          )}
         </div>
       </div>
     </Modal>
