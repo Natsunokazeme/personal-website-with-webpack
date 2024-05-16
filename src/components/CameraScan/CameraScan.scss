@@ -4,6 +4,12 @@
       transform: rotateY(0.5turn);
     }
   }
+  .camera-modal-body {
+    @apply flex flex-col justify-center w-screen h-screen items-center;
+    .skeleton {
+      background-color: var(--theme-color);
+    }
+  }
   .MuiModal-root {
     display: flex;
     align-items: center;

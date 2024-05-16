@@ -1,7 +1,7 @@
 import React, {FC, useLayoutEffect, useRef, useState} from "react"
 import "./CameraScan.scss"
 import {useEffect} from "react"
-import {CircularProgress, Modal} from "@mui/material"
+import {CircularProgress, Modal, Skeleton} from "@mui/material"
 import CameraRoundedIcon from "@mui/icons-material/CameraRounded"
 
 interface CameraScanProps {
@@ -157,11 +157,17 @@ const CameraScan: FC<CameraScanProps> = (prop: CameraScanProps) => {
         prop.setShow(false)
       }}
       keepMounted
-      className={`camera-modal overflow-scroll py-20 bg-black`}
+      className={`camera-modal overflow-scroll bg-black`}
     >
-      <>
+      <div className='camera-modal-body'>
         {loading ? (
-          <CircularProgress size={100} className='fixed left-1/2 top-1/2' />
+          // <CircularProgress size={100} className='fixed left-1/2 top-1/2' />
+          <Skeleton
+            className='skeleton'
+            variant='rectangular'
+            width={600}
+            height={400}
+          />
         ) : null}
         {videoContainer}
         <div className='actions flex justify-center mt-10'>
@@ -189,15 +195,17 @@ const CameraScan: FC<CameraScanProps> = (prop: CameraScanProps) => {
                 changeCamera(camera.deviceId)
               }}
               className={`${
-                camera.active ? "text-red-500" : "text-white "
-              } list-none hover:text-red-300 hover:cursor-pointer`}
+                camera.active
+                  ? "text-[var(--secondary-theme-color)]"
+                  : "text-white "
+              } list-none px-5 py-3 rounded-lg bg-[var(--light-theme-color)] hover:opacity-50 hover:cursor-pointer`}
               key={camera.deviceId}
             >
-              {camera.label.split("(")[0]}
+              {camera.label}
             </li>
           ))}
         </div>
-      </>
+      </div>
     </Modal>
   )
 }

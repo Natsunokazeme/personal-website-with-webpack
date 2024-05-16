@@ -7,6 +7,7 @@ import PhotoCameraIcon from "@mui/icons-material/PhotoCamera"
 import DownloadIcon from "@mui/icons-material/Download"
 import UploadIcon from "@mui/icons-material/Upload"
 import React from "react"
+import {Skeleton} from "@mui/material"
 
 const ImagePage = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -97,8 +98,17 @@ const ImagePage = () => {
   return (
     <div className='image-page'>
       <div className='canvas-container'>
-        <p>Preview</p>
         <canvas ref={canvasRef} className='max-w-full'></canvas>
+        {cropperImg ? (
+          ""
+        ) : (
+          <Skeleton
+            className='skeleton'
+            variant='rectangular'
+            width={600}
+            height={400}
+          />
+        )}
       </div>
       <div className='actions flex gap-4 justify-center mt-10'>
         <button
