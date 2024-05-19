@@ -3,7 +3,6 @@ import {useMemo, useRef, useState} from "react"
 import {useEffect} from "react"
 import dayjs from "./../../utils/dayjs"
 import React from "react"
-import {ClassNames} from "@emotion/react"
 
 const Clock = () => {
   const [curTime, setCurTime] = useState(new Date())

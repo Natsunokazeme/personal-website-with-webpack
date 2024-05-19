@@ -1,3 +1,20 @@
-.FinancePage {
-  
+.finance-page {
+  @apply flex flex-col items-center justify-center;
+  .currency-selector {
+    .currency-selector-select {
+      @apply bg-[var(--theme-color)] text-[var(--main-color)] rounded-md w-40;
+    }
+  }
+}
+.currency-selector-menu-list {
+  @apply bg-[var(--main-bg-color)] text-[var(--main-color)] p-4;
+  .selected-currency-item {
+    @apply text-[var(--theme-color)];
+  }
+  .currency-item {
+    @apply cursor-pointer;
+    &:hover {
+      @apply text-[var(--theme-color)];
+    }
+  }
 }

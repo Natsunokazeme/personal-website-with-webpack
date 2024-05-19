@@ -27,8 +27,7 @@ import DayMode from "../../assets/icons/daymode.svg"
 import NightMode from "../../assets/icons/moon.svg"
 import React from "react"
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney"
-
-console.log(WeChat)
+import {useTheme} from "../../utils/useTheme"
 
 interface SnackbarConfig {
   message: string
@@ -50,16 +49,7 @@ const Header: FC<HeaderProps> = (props) => {
   })
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const navigate = useNavigate()
-  const [theme, setTheme] = useState("dark")
-
-  useEffect(() => {
-    const root = document.getElementsByClassName("App")[0]
-    if (theme === "dark") {
-      root.classList.remove("light-mode")
-    } else {
-      root.classList.add("light-mode")
-    }
-  }, [theme])
+  const {theme, setTheme} = useTheme()
 
   const handleLogin = (username: string, password: string) => {
     const hashToken = MD5(password).toString()
@@ -344,7 +334,7 @@ const Header: FC<HeaderProps> = (props) => {
           icon={<DayMode />}
           disableRipple
           onClick={() => {
-            setTheme(theme === "light" ? "dark" : "light")
+            setTheme(theme === "dark" ? "light" : "dark")
           }}
         />
       </Toolbar>
