@@ -26,6 +26,7 @@ import WeChat from "../../assets/icons/weChat.svg"
 import DayMode from "../../assets/icons/daymode.svg"
 import NightMode from "../../assets/icons/moon.svg"
 import React from "react"
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney"
 
 console.log(WeChat)
 
@@ -230,6 +231,17 @@ const Header: FC<HeaderProps> = (props) => {
             onClick={() => navigate("/creation")}
           >
             <BrushIcon />
+          </IconButton>
+        </Tooltip>
+        <Tooltip arrow title='finance'>
+          <IconButton
+            size='large'
+            edge='start'
+            color='inherit'
+            aria-label='creation'
+            onClick={() => navigate("/finance")}
+          >
+            <AttachMoneyIcon />
           </IconButton>
         </Tooltip>
         {/* <Tooltip arrow title='weChat settings'>

@@ -2,6 +2,7 @@
   background-color: var(--main-bg-color);
   color: var(--main-color);
   transition: background-color 0.5s ease, color 0.5s ease;
+  @apply min-h-screen;
   &.light-mode {
     background-color: var(--main-day-bg-color);
     color: var(--main-day-color);

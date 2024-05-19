@@ -7,6 +7,7 @@ import Loading from "./components/Loading/Loading"
 import {RouterProvider, createBrowserRouter} from "react-router-dom"
 import MainPage from "./pages/MainPage/MainPage"
 import ImagePage from "./pages/ImagePage/ImagePage"
+import {FinancePage} from "./pages/FinancePage/FinancePage"
 
 function App() {
   const customTheme = createTheme({
@@ -28,6 +29,10 @@ function App() {
     {
       path: "/camera",
       element: <ImagePage />,
+    },
+    {
+      path: "/finance",
+      element: <FinancePage />,
     },
     {
       path: "*",
