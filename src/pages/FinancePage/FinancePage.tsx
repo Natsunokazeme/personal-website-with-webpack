@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useMemo} from "react"
 
 import "./FinancePage.scss"
 import axios from "axios"
-import {InputLabel, Select, MenuItem} from "@mui/material"
+import {InputLabel, Select, MenuItem, Input} from "@mui/material"
 
 export interface FinancePageProps {
   prop?: string
@@ -111,7 +111,12 @@ export function FinancePage({prop = "default value"}: FinancePageProps) {
       desc: "新西兰元",
     },
   ])
-  const [selectedCurrency, setSelectedCurrency] = React.useState("")
+  const [selectedCurrency, setSelectedCurrency] = React.useState({
+    from: "",
+    fromPrice: 0,
+    to: "",
+    toPrice: 0,
+  })
 
   // useEffect(() => {
   //   axios
@@ -127,19 +132,36 @@ export function FinancePage({prop = "default value"}: FinancePageProps) {
 
   return (
     <div className='finance-page'>
-      <div>
-        <h1>Currency List</h1>
-        <InputLabel id='currency-label'>From Currency</InputLabel>
+      {/* todo make more clean code later */}
+      <h1 className='text-center'>Currency List</h1>
+      <div className='currency-wrapper'>
+        <InputLabel className='currency-label'>From Currency</InputLabel>
+        <Input
+          classes={{
+            root: "currency-input-root",
+            input: "currency-input h-full text-center",
+          }}
+          disabled={!selectedCurrency.from}
+          type='number'
+          value={selectedCurrency.fromPrice}
+          onChange={(e) => {
+            setSelectedCurrency((prev) => ({
+              ...prev,
+              fromPrice: Number(e.target.value),
+            }))
+          }}
+        ></Input>
         <Select
-          labelId='currency-label'
           classes={{
             root: "currency-selector-root",
             select: "currency-selector-select",
           }}
           className='currency-selector'
-          value={selectedCurrency}
+          value={selectedCurrency.from}
           label='Currency'
-          onChange={(e) => setSelectedCurrency(e.target.value as string)}
+          onChange={(e) =>
+            setSelectedCurrency((prev) => ({...prev, from: e.target.value}))
+          }
           MenuProps={{
             MenuListProps: {
               classes: {
@@ -153,7 +175,58 @@ export function FinancePage({prop = "default value"}: FinancePageProps) {
               key={currency.name}
               value={currency.name}
               className={`currency-item ${
-                currency.name === selectedCurrency
+                currency.name === selectedCurrency.from
+                  ? `selected-currency-item`
+                  : ""
+              }`}
+            >
+              {currency.name} {currency.desc}
+            </MenuItem>
+          ))}
+        </Select>
+      </div>
+      <div className='currency-wrapper mt-5'>
+        <InputLabel className='currency-label'>To Currency</InputLabel>
+        <Input
+          classes={{
+            root: "currency-input-root",
+            input: "currency-input h-full text-center",
+          }}
+          disabled={!selectedCurrency.to}
+          type='number'
+          value={selectedCurrency.toPrice}
+          onChange={(e) => {
+            setSelectedCurrency((prev) => ({
+              ...prev,
+              toPrice: Number(e.target.value),
+            }))
+          }}
+        ></Input>
+        <Select
+          classes={{
+            root: "currency-selector-root",
+            select: "currency-selector-select",
+          }}
+          className='currency-selector'
+          value={selectedCurrency.to}
+          label='Currency'
+          onChange={(e) =>
+            setSelectedCurrency((prev) => ({...prev, to: e.target.value}))
+          }
+          MenuProps={{
+            MenuListProps: {
+              classes: {
+                root: "currency-selector-menu-list",
+              },
+            },
+          }}
+        >
+          {currencyList.map((currency: any) => (
+            <MenuItem
+              key={currency.name}
+              value={currency.name}
+              className={`currency-item ${
+                currency.name === selectedCurrency.to
                   ? `selected-currency-item`
                   : ""
               }`}

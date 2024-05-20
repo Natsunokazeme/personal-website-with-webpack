@@ -1,6 +1,13 @@
 .finance-page {
-  @apply flex flex-col items-center justify-center;
+  // @apply flex flex-col items-center justify-center;
+  .currency-wrapper {
+    @apply flex items-center justify-center;
+    .currency-label {
+      @apply w-40 text-end px-2 text-[var(--main-color)];
+    }
+  }
   .currency-selector {
+    @apply ml-2;
     .currency-selector-select {
       @apply bg-[var(--theme-color)] text-[var(--main-color)] rounded-md w-40;
     }
