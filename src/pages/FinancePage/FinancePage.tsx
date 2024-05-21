@@ -194,7 +194,7 @@ export function FinancePage({prop = "default value"}: FinancePageProps) {
         <Input
           classes={{
             root: "currency-input-root",
-            input: "currency-input h-full text-center",
+            input: "currency-input",
           }}
           disabled={!selectedCurrency.from}
           type='number'
@@ -253,7 +253,7 @@ export function FinancePage({prop = "default value"}: FinancePageProps) {
         <Input
           classes={{
             root: "currency-input-root",
-            input: "currency-input h-full text-center",
+            input: "currency-input",
           }}
           disabled={!selectedCurrency.to}
           type='number'

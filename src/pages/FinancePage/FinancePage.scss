@@ -5,6 +5,9 @@
     .currency-label {
       @apply w-40 text-end px-2 text-[var(--main-color)];
     }
+    .currency-input {
+      @apply h-full text-center text-[var(--main-color)];
+    }
   }
   .currency-selector {
     @apply ml-2;
