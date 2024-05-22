@@ -160,7 +160,7 @@ const CameraScan: FC<CameraScanProps> = (prop: CameraScanProps) => {
         prop.setShow(false)
       }}
       keepMounted
-      className={`camera-modal overflow-scroll bg-black`}
+      className={`camera-modal overflow-scroll bg-[var(--main-bg-color)]`}
     >
       <div className='camera-modal-body'>
         {loading ? (
@@ -179,8 +179,8 @@ const CameraScan: FC<CameraScanProps> = (prop: CameraScanProps) => {
             className={`${
               countDownNumber !== countDownInitTime
                 ? "hover:cursor-not-allowed "
-                : ""
-            }  `}
+                : "hover:cursor-pointer"
+            } hover:opacity-50 `}
             onClick={() => {
               setCountDownNumber(countDownInitTime - 1)
             }}

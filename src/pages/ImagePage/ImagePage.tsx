@@ -79,7 +79,6 @@ const ImagePage = () => {
   }
 
   const cropImage = (imgUrl: string) => {
-    //todo fix bug for cropped image
     const canvas = canvasRef.current as HTMLCanvasElement
     const ctx = canvas.getContext("2d")
     if (ctx) {
@@ -98,7 +97,12 @@ const ImagePage = () => {
   return (
     <div className='image-page'>
       <div className='canvas-container'>
-        <canvas ref={canvasRef} className='max-w-full'></canvas>
+        <canvas
+          width={0}
+          height={0}
+          ref={canvasRef}
+          className='max-w-full'
+        ></canvas>
         {cropperImg ? (
           ""
         ) : (
@@ -126,6 +130,8 @@ const ImagePage = () => {
           <UploadIcon fontSize='large' color='primary'></UploadIcon>
         </button>
         <button
+          className='disabled:cursor-not-allowed disabled:opacity-50'
+          disabled={!cropperImg}
           onClick={() => {
             saveCanvas()
           }}
