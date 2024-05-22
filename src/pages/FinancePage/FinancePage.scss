@@ -1,18 +1,27 @@
 .finance-page {
-  // @apply flex flex-col items-center justify-center;
+  @apply h-full flex  items-center justify-center;
   .currency-wrapper {
-    @apply flex items-center justify-center;
+    @apply flex items-stretch justify-center;
     .currency-label {
-      @apply w-40 text-end px-2 text-[var(--main-color)];
+      @apply w-40 text-end px-2 text-[var(--main-color)] my-auto;
     }
-    .currency-input {
-      @apply h-full text-center text-[var(--main-color)];
+    .currency-input-root {
+      &::before {
+        @apply hidden;
+      }
+      &::after {
+        @apply scale-100;
+      }
+      .currency-input {
+        @apply h-full text-center text-[var(--main-color)] box-border disabled:cursor-not-allowed;
+      }
     }
   }
   .currency-selector {
     @apply ml-2;
     .currency-selector-select {
-      @apply bg-[var(--theme-color)] text-[var(--main-color)] rounded-md w-40;
+      @apply bg-[var(--theme-color)] text-[var(--secondary-theme-color)] rounded-md w-40;
+      -webkit-text-fill-color: var(--secondary-theme-color);
     }
   }
 }

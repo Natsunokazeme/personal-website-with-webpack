@@ -188,144 +188,146 @@ export function FinancePage({prop = "default value"}: FinancePageProps) {
   return (
     <div className='finance-page'>
       {/* todo make more clean code later */}
-      <h1 className='text-center'>Currency List</h1>
-      <div className='currency-wrapper'>
-        <InputLabel className='currency-label'>From Currency</InputLabel>
-        <Input
-          classes={{
-            root: "currency-input-root",
-            input: "currency-input",
-          }}
-          disabled={!selectedCurrency.from}
-          type='number'
-          value={selectedCurrency.fromPrice}
-          onChange={(e) => {
-            const exchangeRateFromCNY = currencyList.find(
-              (currency) => currency.currencyCode === selectedCurrency.to
-            )?.exchangeRateFromCNY
-            setSelectedCurrency((prev) => ({
-              ...prev,
-              fromPrice: Number(e.target.value),
-              toPrice: getFixedPointNumber(
-                Number(e.target.value) * (exchangeRateFromCNY ?? 0),
-                4
-              ),
-            }))
-          }}
-        ></Input>
-        <Select
-          disabled
-          classes={{
-            root: "currency-selector-root",
-            select: "currency-selector-select",
-          }}
-          className='currency-selector'
-          value={selectedCurrency.from}
-          label='Currency'
-          onChange={(e) =>
-            setSelectedCurrency((prev) => ({...prev, from: e.target.value}))
-          }
-          MenuProps={{
-            MenuListProps: {
-              classes: {
-                root: "currency-selector-menu-list",
+      <div>
+        <h1 className='text-center'>Currency List</h1>
+        <div className='currency-wrapper'>
+          <InputLabel className='currency-label'>From Currency</InputLabel>
+          <Input
+            classes={{
+              root: "currency-input-root",
+              input: "currency-input",
+            }}
+            disabled={!selectedCurrency.from}
+            type='number'
+            value={selectedCurrency.fromPrice}
+            onChange={(e) => {
+              const exchangeRateFromCNY = currencyList.find(
+                (currency) => currency.currencyCode === selectedCurrency.to
+              )?.exchangeRateFromCNY
+              setSelectedCurrency((prev) => ({
+                ...prev,
+                fromPrice: Number(e.target.value),
+                toPrice: getFixedPointNumber(
+                  Number(e.target.value) * (exchangeRateFromCNY ?? 0),
+                  4
+                ),
+              }))
+            }}
+          ></Input>
+          <Select
+            disabled
+            classes={{
+              root: "currency-selector-root",
+              select: "currency-selector-select",
+            }}
+            className='currency-selector'
+            value={selectedCurrency.from}
+            label='Currency'
+            onChange={(e) =>
+              setSelectedCurrency((prev) => ({...prev, from: e.target.value}))
+            }
+            MenuProps={{
+              MenuListProps: {
+                classes: {
+                  root: "currency-selector-menu-list",
+                },
               },
-            },
-          }}
-        >
-          {currencyList.map((currency: ExchangeRate) => (
-            <MenuItem
-              key={currency.currencyCode}
-              value={currency.currencyCode}
-              className={`currency-item ${
-                currency.currencyCode === selectedCurrency.from
-                  ? `selected-currency-item`
-                  : ""
-              }`}
-            >
-              {currency.currencyCode} {currency.currencyName}
-            </MenuItem>
-          ))}
-        </Select>
-      </div>
-      <div className='currency-wrapper mt-5'>
-        <InputLabel className='currency-label'>To Currency</InputLabel>
-        <Input
-          classes={{
-            root: "currency-input-root",
-            input: "currency-input",
-          }}
-          disabled={!selectedCurrency.to}
-          type='number'
-          value={selectedCurrency.toPrice}
-          onChange={(e) => {
-            const exchangeRateFromCNY = currencyList.find(
-              (currency) => currency.currencyCode === selectedCurrency.to
-            )?.exchangeRateFromCNY
+            }}
+          >
+            {currencyList.map((currency: ExchangeRate) => (
+              <MenuItem
+                key={currency.currencyCode}
+                value={currency.currencyCode}
+                className={`currency-item ${
+                  currency.currencyCode === selectedCurrency.from
+                    ? `selected-currency-item`
+                    : ""
+                }`}
+              >
+                {currency.currencyCode} {currency.currencyName}
+              </MenuItem>
+            ))}
+          </Select>
+        </div>
+        <div className='currency-wrapper mt-5'>
+          <InputLabel className='currency-label'>To Currency</InputLabel>
+          <Input
+            classes={{
+              root: "currency-input-root",
+              input: "currency-input",
+            }}
+            disabled={!selectedCurrency.to}
+            type='number'
+            value={selectedCurrency.toPrice}
+            onChange={(e) => {
+              const exchangeRateFromCNY = currencyList.find(
+                (currency) => currency.currencyCode === selectedCurrency.to
+              )?.exchangeRateFromCNY
 
-            setSelectedCurrency((prev) => ({
-              ...prev,
-              toPrice: Number(e.target.value),
-              fromPrice: getFixedPointNumber(
-                Number(e.target.value) / (exchangeRateFromCNY ?? 0),
-                4
-              ),
-            }))
-          }}
-        ></Input>
-        <Select
-          classes={{
-            root: "currency-selector-root",
-            select: "currency-selector-select",
-          }}
-          className='currency-selector'
-          value={selectedCurrency.to}
-          label='Currency'
-          onChange={(e) => {
-            const exchangeRateFromCNY = currencyList.find(
-              (currency) => currency.currencyCode === e.target.value
-            )?.exchangeRateFromCNY
-            setSelectedCurrency((prev) => ({
-              ...prev,
-              to: e.target.value,
-              fromPrice: getFixedPointNumber(
-                prev.toPrice / (exchangeRateFromCNY ?? 0),
-                4
-              ),
-            }))
-          }}
-          MenuProps={{
-            MenuListProps: {
-              classes: {
-                root: "currency-selector-menu-list",
+              setSelectedCurrency((prev) => ({
+                ...prev,
+                toPrice: Number(e.target.value),
+                fromPrice: getFixedPointNumber(
+                  Number(e.target.value) / (exchangeRateFromCNY ?? 0),
+                  4
+                ),
+              }))
+            }}
+          ></Input>
+          <Select
+            classes={{
+              root: "currency-selector-root",
+              select: "currency-selector-select",
+            }}
+            className='currency-selector'
+            value={selectedCurrency.to}
+            label='Currency'
+            onChange={(e) => {
+              const exchangeRateFromCNY = currencyList.find(
+                (currency) => currency.currencyCode === e.target.value
+              )?.exchangeRateFromCNY
+              setSelectedCurrency((prev) => ({
+                ...prev,
+                to: e.target.value,
+                fromPrice: getFixedPointNumber(
+                  prev.toPrice / (exchangeRateFromCNY ?? 0),
+                  4
+                ),
+              }))
+            }}
+            MenuProps={{
+              MenuListProps: {
+                classes: {
+                  root: "currency-selector-menu-list",
+                },
               },
-            },
-          }}
-        >
-          {currencyList.map((currency: ExchangeRate) => (
-            <MenuItem
-              key={currency.currencyCode}
-              value={currency.currencyCode}
-              className={`currency-item ${
-                currency.currencyCode === selectedCurrency.to
-                  ? `selected-currency-item`
-                  : ""
-              }`}
-            >
-              {currency.currencyCode} {currency.currencyName}
-            </MenuItem>
-          ))}
-        </Select>
+            }}
+          >
+            {currencyList.map((currency: ExchangeRate) => (
+              <MenuItem
+                key={currency.currencyCode}
+                value={currency.currencyCode}
+                className={`currency-item ${
+                  currency.currencyCode === selectedCurrency.to
+                    ? `selected-currency-item`
+                    : ""
+                }`}
+              >
+                {currency.currencyCode} {currency.currencyName}
+              </MenuItem>
+            ))}
+          </Select>
+        </div>
+        <h3 className='text-center pt-5'>
+          Exchange Rate: 1 {selectedCurrency.from} ={" "}
+          {
+            currencyList.find(
+              (currency) => currency.currencyCode === selectedCurrency.to
+            )?.exchangeRateFromCNY
+          }{" "}
+          {selectedCurrency.to}
+        </h3>
       </div>
-      <h3 className='text-center'>
-        Exchange Rate: 1 {selectedCurrency.from} ={" "}
-        {
-          currencyList.find(
-            (currency) => currency.currencyCode === selectedCurrency.to
-          )?.exchangeRateFromCNY
-        }{" "}
-        {selectedCurrency.to}
-      </h3>
     </div>
   )
 }
