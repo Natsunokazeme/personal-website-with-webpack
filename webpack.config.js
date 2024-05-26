@@ -43,7 +43,17 @@ module.exports = {
     static: {
       directory: path.join(__dirname, "dist"),
     },
+    compress: true,
     port: 3000,
+    proxy: {
+      "/proxy": {
+        target: "https://anime-music-files.jijidown.com",
+        changeOrigin: true,
+        pathRewrite: {
+          "^/proxy": "",
+        },
+      },
+    },
   },
   plugins: [
     new HtmlWebpackPlugin({

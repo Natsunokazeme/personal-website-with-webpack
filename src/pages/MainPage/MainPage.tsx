@@ -1,5 +1,5 @@
 import "./MainPage.scss"
-import React, {useCallback, useEffect} from "react"
+import React, {useCallback, useEffect, useMemo} from "react"
 import Clock from "../../components/Clock/Clock"
 import DragSortList from "../../components/DragSortList/DragSortList"
 import MusicNoteIcon from "@mui/icons-material/MusicNote"
@@ -7,6 +7,7 @@ import MusicOffIcon from "@mui/icons-material/MusicOff"
 import {IconButton, Tooltip} from "@mui/material"
 import Header from "../../components/Header/Header"
 import axios from "axios"
+import {audioVisualize} from "../../utils/audioVisualize"
 
 let bgmReady = false
 
@@ -15,6 +16,10 @@ const MainPage = (props: any) => {
   const [bgUrl, setBgUrl] = React.useState("")
 
   const bgMusicRef = React.useRef<HTMLAudioElement>(null)
+
+  const {audioCtx, analyser} = useMemo(() => {
+    return audioVisualize()
+  }, [])
 
   const handleMusicToggle = useCallback(() => {
     const bgMusic = bgMusicRef.current
@@ -35,9 +40,16 @@ const MainPage = (props: any) => {
     axios.get("https://anime-music.jijidown.com/api/v2/music").then((res) => {
       setBgUrl(res.data.res.anime_info.bg)
       if (bgMusicRef.current) {
-        bgMusicRef.current.src = res.data.res.play_url
+        const proxyUrl = "/proxy" + res.data.res.play_url.split(".com")[1]
+        bgMusicRef.current.src = proxyUrl
         bgMusicRef.current.addEventListener("canplay", () => {
           bgmReady = true
+          //visualize music
+          const source = audioCtx.createMediaElementSource(
+            bgMusicRef.current as HTMLAudioElement
+          )
+          source.connect(analyser)
+          analyser.connect(audioCtx.destination)
         })
       }
     })
@@ -94,9 +106,10 @@ const MainPage = (props: any) => {
           }}
         />
       </div>
-      <audio ref={bgMusicRef} loop hidden></audio>
+      <audio crossOrigin='' ref={bgMusicRef} loop hidden></audio>
       {/* <DragSortList></DragSortList> */}
     </div>
   )
 }
+
 export default MainPage
