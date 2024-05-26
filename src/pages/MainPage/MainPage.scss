@@ -7,8 +7,32 @@
       @apply text-2xl text-purple-500;
     }
   }
-  .bg-music {
-    @apply fixed bottom-0 right-0 hover:bottom-2 transition-all;
+  .bg-music-wrapper {
+    @apply fixed bottom-4 right-4 hover:bottom-6 rounded-full transition-all h-[10vh] bg-[--main-bg-color] aspect-square;
     color: var(--secondary-theme-color);
+    .bg {
+      @apply w-full h-full object-cover rounded-full;
+      animation: rotate 60s linear infinite;
+
+      &.bg-off {
+        animation-play-state: paused;
+        filter: opacity(0.5);
+      }
+      &.bg-on {
+        animation-play-state: running;
+      }
+      &:hover {
+        filter: none;
+      }
+    }
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
   }
 }

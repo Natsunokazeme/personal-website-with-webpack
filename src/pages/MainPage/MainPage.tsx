@@ -12,6 +12,7 @@ let bgmReady = false
 
 const MainPage = (props: any) => {
   const [musicOn, setMusicOn] = React.useState(false)
+  const [bgUrl, setBgUrl] = React.useState("")
 
   const bgMusicRef = React.useRef<HTMLAudioElement>(null)
 
@@ -32,6 +33,7 @@ const MainPage = (props: any) => {
 
   useEffect(() => {
     axios.get("https://anime-music.jijidown.com/api/v2/music").then((res) => {
+      setBgUrl(res.data.res.anime_info.bg)
       if (bgMusicRef.current) {
         bgMusicRef.current.src = res.data.res.play_url
         bgMusicRef.current.addEventListener("canplay", () => {
@@ -65,7 +67,7 @@ const MainPage = (props: any) => {
       {/* <div>page navigation cards</div>
       <div>recommend websites</div>
       <div>self learning notes</div> */}
-      <Tooltip
+      {/* <Tooltip
         placement='left-start'
         title='Random Anime Music'
         className='bg-music'
@@ -81,7 +83,17 @@ const MainPage = (props: any) => {
             <MusicOffIcon sx={{fontSize: 80}} />
           )}
         </IconButton>
-      </Tooltip>
+      </Tooltip> */}
+      <div className='bg-music-wrapper'>
+        <img
+          src={bgUrl}
+          className={`bg ${musicOn ? "bg-on" : "bg-off"}`}
+          alt="background music's image"
+          onClick={() => {
+            bgmReady && setMusicOn(!musicOn)
+          }}
+        />
+      </div>
       <audio ref={bgMusicRef} loop hidden></audio>
       {/* <DragSortList></DragSortList> */}
     </div>
