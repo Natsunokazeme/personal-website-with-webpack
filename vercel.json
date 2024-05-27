@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/proxy/:match*",
+      "destination": "https://anime-music-files.jijidown.com/:match*"
+    }
+  ]
+}
