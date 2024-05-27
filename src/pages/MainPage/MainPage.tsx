@@ -21,10 +21,24 @@ const MainPage = (props: any) => {
     return audioVisualize()
   }, [])
 
+  // audioCtx must close to change the state to suspended, otherwise the connect will not work correctly
   const handleMusicToggle = useCallback(() => {
     const bgMusic = bgMusicRef.current
     if (bgMusic && bgmReady) {
       if (musicOn) {
+        //visualize music
+        // console.log(2, audioCtx.state)
+        if (audioCtx.state === "suspended") {
+          const source = audioCtx.createMediaElementSource(
+            bgMusicRef.current as HTMLAudioElement
+          )
+          source.connect(analyser)
+          analyser.connect(audioCtx.destination)
+          audioCtx.resume().then(() => {
+            // console.log(3, audioCtx.state)
+          })
+          // console.log(1, source, audioCtx.state)
+        }
         bgMusic.play()
       } else {
         bgMusic.pause()
@@ -37,6 +51,7 @@ const MainPage = (props: any) => {
   }, [handleMusicToggle])
 
   useEffect(() => {
+    // console.log(2, audioCtx.state)
     axios.get("https://anime-music.jijidown.com/api/v2/music").then((res) => {
       setBgUrl(res.data.res.anime_info.bg)
       if (bgMusicRef.current) {
@@ -44,12 +59,6 @@ const MainPage = (props: any) => {
         bgMusicRef.current.src = proxyUrl
         bgMusicRef.current.addEventListener("canplay", () => {
           bgmReady = true
-          //visualize music
-          const source = audioCtx.createMediaElementSource(
-            bgMusicRef.current as HTMLAudioElement
-          )
-          source.connect(analyser)
-          analyser.connect(audioCtx.destination)
         })
       }
     })
@@ -59,6 +68,7 @@ const MainPage = (props: any) => {
           bgmReady = false
         })
       }
+      audioCtx.close()
     }
   }, [])
 
