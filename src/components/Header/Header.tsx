@@ -200,39 +200,45 @@ const Header: FC<HeaderProps> = (props) => {
     <AppBar className='header' position='sticky'>
       <Toolbar>
         <Tooltip arrow title='language learning'>
-          <IconButton
-            disabled
-            size='large'
-            edge='start'
-            color='inherit'
-            aria-label='language learning'
-            onClick={() => navigate("/language-learning")}
-          >
-            <TranslateIcon />
-          </IconButton>
+          <span>
+            <IconButton
+              disabled
+              size='large'
+              edge='start'
+              color='inherit'
+              aria-label='language learning'
+              onClick={() => navigate("/language-learning")}
+            >
+              <TranslateIcon />
+            </IconButton>
+          </span>
         </Tooltip>
         <Tooltip arrow title='creation'>
-          <IconButton
-            disabled
-            size='large'
-            edge='start'
-            color='inherit'
-            aria-label='creation'
-            onClick={() => navigate("/creation")}
-          >
-            <BrushIcon />
-          </IconButton>
+          <span>
+            <IconButton
+              disabled
+              size='large'
+              edge='start'
+              color='inherit'
+              aria-label='creation'
+              onClick={() => navigate("/creation")}
+            >
+              <BrushIcon />
+            </IconButton>
+          </span>
         </Tooltip>
         <Tooltip arrow title='finance'>
-          <IconButton
-            size='large'
-            edge='start'
-            color='inherit'
-            aria-label='creation'
-            onClick={() => navigate("/finance")}
-          >
-            <AttachMoneyIcon />
-          </IconButton>
+          <span>
+            <IconButton
+              size='large'
+              edge='start'
+              color='inherit'
+              aria-label='creation'
+              onClick={() => navigate("/finance")}
+            >
+              <AttachMoneyIcon />
+            </IconButton>
+          </span>
         </Tooltip>
         {/* <Tooltip arrow title='weChat settings'>
           <IconButton
@@ -247,16 +253,18 @@ const Header: FC<HeaderProps> = (props) => {
           </IconButton>
         </Tooltip> */}
         <Tooltip arrow title='computer notebook'>
-          <IconButton
-            disabled
-            size='large'
-            edge='start'
-            color='inherit'
-            aria-label='computer notebook'
-            onClick={() => navigate("/computer-notebook")}
-          >
-            <AutoStoriesIcon />
-          </IconButton>
+          <span>
+            <IconButton
+              disabled
+              size='large'
+              edge='start'
+              color='inherit'
+              aria-label='computer notebook'
+              onClick={() => navigate("/computer-notebook")}
+            >
+              <AutoStoriesIcon />
+            </IconButton>
+          </span>
         </Tooltip>
         <IconButton
           disabled
@@ -275,29 +283,33 @@ const Header: FC<HeaderProps> = (props) => {
           }}
         />
         <Tooltip arrow title='import book'>
-          <IconButton
-            disabled
-            size='large'
-            edge='start'
-            color='inherit'
-            aria-label='import book'
-            onClick={() => handleImportBook()}
-          >
-            <Upload />
-          </IconButton>
+          <span>
+            <IconButton
+              disabled
+              size='large'
+              edge='start'
+              color='inherit'
+              aria-label='import book'
+              onClick={() => handleImportBook()}
+            >
+              <Upload />
+            </IconButton>
+          </span>
         </Tooltip>
         <Tooltip arrow title='camera'>
-          <IconButton
-            size='large'
-            edge='start'
-            color='inherit'
-            aria-label='camera'
-            onClick={() => navigate("/camera")}
-          >
-            {/* <NavLink className={'text-xs'} to='camera' end> */}
-            <CameraAlt />
-            {/* </NavLink> */}
-          </IconButton>
+          <span>
+            <IconButton
+              size='large'
+              edge='start'
+              color='inherit'
+              aria-label='camera'
+              onClick={() => navigate("/camera")}
+            >
+              {/* <NavLink className={'text-xs'} to='camera' end> */}
+              <CameraAlt />
+              {/* </NavLink> */}
+            </IconButton>
+          </span>
         </Tooltip>
         {avatar && avatar !== "" ? (
           <>
@@ -317,26 +329,32 @@ const Header: FC<HeaderProps> = (props) => {
           </>
         ) : (
           <Tooltip arrow title='login'>
-            <IconButton
-              size='large'
-              edge='start'
-              color='inherit'
-              aria-label='login'
-              onClick={() => setShowLogin(true)}
-            >
-              <AccountCircle />
-            </IconButton>
+            <span>
+              <IconButton
+                size='large'
+                edge='start'
+                color='inherit'
+                aria-label='login'
+                onClick={() => setShowLogin(true)}
+              >
+                <AccountCircle />
+              </IconButton>
+            </span>
           </Tooltip>
         )}
-        <Switch
-          checked={theme === "dark"}
-          checkedIcon={<NightMode />}
-          icon={<DayMode />}
-          disableRipple
+        <span
+          className='hover:cursor-pointer'
           onClick={() => {
             setTheme(theme === "dark" ? "light" : "dark")
           }}
-        />
+        >
+          <Switch
+            checked={theme === "dark"}
+            checkedIcon={<NightMode />}
+            icon={<DayMode />}
+            disableRipple
+          />
+        </span>
       </Toolbar>
       <LoginDialog
         showLogin={showLogin}
