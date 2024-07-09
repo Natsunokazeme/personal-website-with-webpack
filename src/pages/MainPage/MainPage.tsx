@@ -14,6 +14,7 @@ let bgmReady = false
 const MainPage = (props: any) => {
   const [musicOn, setMusicOn] = React.useState(false)
   const [bgUrl, setBgUrl] = React.useState("")
+  const audioSourceRef = React.useRef<MediaElementAudioSourceNode | null>(null)
 
   const bgMusicRef = React.useRef<HTMLAudioElement>(null)
 
@@ -21,23 +22,19 @@ const MainPage = (props: any) => {
     return audioVisualize()
   }, [])
 
-  // audioCtx must close to change the state to suspended, otherwise the connect will not work correctly
+  // //audioCtx must close to change the state to suspended, otherwise the connect will not work correctly
   const handleMusicToggle = useCallback(() => {
     const bgMusic = bgMusicRef.current
     if (bgMusic && bgmReady) {
       if (musicOn) {
         //visualize music
-        // console.log(2, audioCtx.state)
-        if (audioCtx.state === "suspended") {
-          const source = audioCtx.createMediaElementSource(
+        // HTMLMediaElement can only be connected to one MediaElementSourceNode.
+        if (!audioSourceRef.current) {
+          audioSourceRef.current = audioCtx.createMediaElementSource(
             bgMusicRef.current as HTMLAudioElement
           )
-          source.connect(analyser)
+          audioSourceRef.current.connect(analyser)
           analyser.connect(audioCtx.destination)
-          audioCtx.resume().then(() => {
-            // console.log(3, audioCtx.state)
-          })
-          // console.log(1, source, audioCtx.state)
         }
         bgMusic.play()
       } else {
@@ -51,7 +48,6 @@ const MainPage = (props: any) => {
   }, [handleMusicToggle])
 
   useEffect(() => {
-    // console.log(2, audioCtx.state)
     axios.get("https://anime-music.jijidown.com/api/v2/music").then((res) => {
       setBgUrl(res.data.res.anime_info.bg)
       if (bgMusicRef.current) {

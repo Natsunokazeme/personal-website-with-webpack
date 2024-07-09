@@ -8,9 +8,14 @@ export function audioVisualize() {
 
   const canvas = document.createElement("canvas")
   const ctx = canvas.getContext("2d")
-  const screenWidth = window.innerWidth;
-  const screenHeight = window.innerHeight;
-  canvas.width = screenWidth
+
+  // dynamically set the canvas size while screen size changes
+  window.addEventListener("resize", () => {
+    const screenWidth = window.innerWidth
+    canvas.width = screenWidth
+  })
+
+  canvas.width = window.innerWidth
   canvas.height = 300
   document.body.appendChild(canvas)
 
