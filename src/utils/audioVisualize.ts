@@ -48,7 +48,7 @@ export function audioVisualize() {
     for (let i = 0; i < bufferLength; i++) {
       barHeight = dataArray[i]
 
-      ctx.fillStyle = "rgb(" + (barHeight + 100) + ",50,50)"
+      ctx.fillStyle = "rgb(" + (barHeight + 50) + ",85,247)"
       ctx.fillRect(x, HEIGHT - barHeight / 256 * HEIGHT, barWidth, barHeight / 256 * HEIGHT)
 
       x += barWidth + 1
