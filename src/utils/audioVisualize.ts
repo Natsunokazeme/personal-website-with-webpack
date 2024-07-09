@@ -19,15 +19,26 @@ export function audioVisualize() {
   canvas.height = 300
   document.body.appendChild(canvas)
 
-  function draw() {
+  // function drawCircle() {
+  //   if (ctx === null) throw new Error("ctx is null")
+  //   ctx.beginPath()
+  //   ctx.arc(100, 75, 50, 0, 2 * Math.PI)
+  //   ctx.lineWidth = 2;
+  //   ctx.strokeStyle = "#ff0000"
+  //   ctx.stroke()
+  //   ctx.drawImage
+  // }
+
+  function drawRect() {
+
     const WIDTH = canvas.width
     const HEIGHT = canvas.height
-
-    requestAnimationFrame(draw)
-
     analyser.getByteFrequencyData(dataArray)
     if (ctx === null) throw new Error("ctx is null")
-    ctx.fillStyle = "rgb(0, 0, 0)"
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    const mainColor = localStorage.getItem("theme") === "dark" ? "rgb(0, 0, 0)" : "rgb(255, 255, 255)";
+    ctx.fillStyle = mainColor
     ctx.fillRect(0, 0, WIDTH, HEIGHT)
 
     const barWidth = (WIDTH / bufferLength) * 2.5
@@ -42,9 +53,10 @@ export function audioVisualize() {
 
       x += barWidth + 1
     }
+    requestAnimationFrame(drawRect)
   }
 
-  draw()
+  drawRect()
 
   return { analyser, audioCtx }
 }
